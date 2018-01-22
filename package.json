@@ -9,6 +9,7 @@
   "author": "pparonson",
   "license": "MIT",
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
     "express": "^4.16.2",
     "jquery": "^3.3.1",
     "ramda": "^0.25.0"

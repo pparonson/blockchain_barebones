@@ -1,27 +1,28 @@
-import * as R from 'ramda';
 
-import * as math from './sum';
+import sha256 from 'crypto-js/sha256';
 
-console.log(`Answer: ${math.add(2, 1)}`);
+// import * as math from './sum';
+import Block from './block';
+import Blockchain from './blockchain';
 
-/*
-* index: index of this block in the chain
-* timestamp: timestamp of block creation
-* data: details of the transaction
-* previousHash: hash of the previous block
-* hash: hash of this block
-*/
-class Block {
-  constructor(index, timestamp, data, previousHash = '') {
-    this.index = index;
-    this.timestamp = timestamp;
-    this.data = data;
-    this.previousHash = previousHash;
-    this.hash = '';
-  }
+// console.log(`Answer: ${math.add(2, 1)}`);
 
-  // methods
-  calculateHash() {
-    // ca
-  }
-}
+let bareBonesCoin = new Blockchain();
+
+bareBonesCoin.addBlock(
+  new Block(
+    null,
+    Date.now(),
+    {amount: 4}
+  )
+);
+
+bareBonesCoin.addBlock(
+  new Block(
+    null,
+    Date.now(),
+    {amount: 10}
+  )
+);
+
+console.log(JSON.stringify(bareBonesCoin, null, 2));
