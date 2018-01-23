@@ -1,5 +1,3 @@
-import * as R from 'ramda';
-
 import Block from './block';
 
 export default class Blockchain {
@@ -32,6 +30,25 @@ export default class Blockchain {
     newBlock.hash = newBlock.calculateHash();
     //push the newBlock to the blockchain
     this.chain.push(newBlock);
+  }
+
+  isChainValid() {
+    //exclude genesisBlock from loop
+    for (let i = 1; i < this.chain.length; i++) {
+      const currentBlock = this.chain[i];
+      const previousBlock = this.chain[i - 1];
+
+      // verify hash of currentBlock
+      if (currentBlock.hash !== currentBlock.calculateHash()) {
+        return false;
+      }
+      // verify previousHash
+      if (currentBlock.previousHash !== previousBlock.hash) {
+        return false
+      }
+    }
+    // if all hashes are verified
+    return true;
   }
 }
 
