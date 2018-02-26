@@ -4,7 +4,7 @@ import Block from './block';
 
 export default class Blockchain {
   constructor() {
-    // upon initialization, create a genesis block 
+    // upon initialization, create a genesis block
     this.chain = [this.createGenesisBlock()];
   }
 
@@ -35,6 +35,20 @@ export default class Blockchain {
     newBlock.hash = newBlock.calculateHash();
     //push the newBlock to the blockchain
     this.chain.push(newBlock);
+  }
+
+  isChainValid() {
+    let currentBlockHash = this.getLatestBlock().previousHash;
+    let previousBlockHash = this.chain[this.getLatestBlock().index - 1].hash;
+    // let previousBlockHash = this.chain[this.chain.length - 2].hash
+    console.log(`Current: ${currentBlockHash}, \nPrevious: ${previousBlockHash}`);
+    if (currentBlockHash === previousBlockHash) {
+      console.log(true);
+      return true;
+    } else {
+      console.log(false);
+      return false;
+    }
   }
 }
 

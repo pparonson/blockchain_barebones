@@ -5816,6 +5816,8 @@ bareBonesCoin.addBlock(new _block2.default(null, Date.now(), { amount: 10 }));
 
 console.log(JSON.stringify(bareBonesCoin, null, 2));
 
+bareBonesCoin.isChainValid();
+
 /***/ }),
 /* 123 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -14570,7 +14572,7 @@ var Blockchain = function () {
   function Blockchain() {
     _classCallCheck(this, Blockchain);
 
-    // a genesis block is created witht the new blockchain
+    // upon initialization, create a genesis block
     this.chain = [this.createGenesisBlock()];
   }
 
@@ -14605,6 +14607,21 @@ var Blockchain = function () {
       newBlock.hash = newBlock.calculateHash();
       //push the newBlock to the blockchain
       this.chain.push(newBlock);
+    }
+  }, {
+    key: 'isChainValid',
+    value: function isChainValid() {
+      var currentBlockHash = this.getLatestBlock().previousHash;
+      var previousBlockHash = this.chain[this.getLatestBlock().index - 1].hash;
+      // let previousBlockHash = this.chain[this.chain.length - 2].hash
+      console.log('Current: ' + currentBlockHash + ', \nPrevious: ' + previousBlockHash);
+      if (currentBlockHash === previousBlockHash) {
+        console.log(true);
+        return true;
+      } else {
+        console.log(false);
+        return false;
+      }
     }
   }]);
 

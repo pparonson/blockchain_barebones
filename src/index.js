@@ -26,3 +26,5 @@ bareBonesCoin.addBlock(
 );
 
 console.log(JSON.stringify(bareBonesCoin, null, 2));
+
+bareBonesCoin.isChainValid();
