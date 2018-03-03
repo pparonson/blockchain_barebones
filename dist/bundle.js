@@ -1176,7 +1176,7 @@ var Blockchain = function () {
 
     // a genesis block is created witht the new blockchain
     this.chain = [this.createGenesisBlock()];
-    this.difficulty = 5;
+    this.difficulty = 4;
   }
 
   //methods
