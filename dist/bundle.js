@@ -5816,7 +5816,7 @@ bareBonesCoin.addBlock(new _block2.default(null, Date.now(), { amount: 10 }));
 
 console.log(JSON.stringify(bareBonesCoin, null, 2));
 
-bareBonesCoin.isChainValid();
+console.log(bareBonesCoin.isChainValid());
 
 /***/ }),
 /* 123 */
