@@ -309,6 +309,7 @@ var Block = function () {
     this.data = data;
     this.previousHash = previousHash;
     this.hash = this.calculateHash();
+    this.nonce = 0;
   }
 
   //methods
@@ -317,7 +318,17 @@ var Block = function () {
   _createClass(Block, [{
     key: 'calculateHash',
     value: function calculateHash() {
-      return (0, _sha2.default)(this.index + this.timestamp + this.previousHash + JSON.stringify(this.data)).toString();
+      return (0, _sha2.default)(this.index + this.timestamp + this.previousHash + JSON.stringify(this.data) + this.nonce).toString();
+    }
+  }, {
+    key: 'mineBlock',
+    value: function mineBlock(difficulty) {
+      while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
+        this.nonce++;
+        this.hash = this.calculateHash();
+      }
+
+      console.log('Mined block: ' + this.hash);
     }
   }]);
 
@@ -352,22 +363,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import * as math from './sum';
 var bareBonesCoin = new _blockchain2.default();
 
+console.log("Mining block...");
 bareBonesCoin.addBlock(new _block2.default(null, Date.now(), { amount: 4 }));
+console.log(JSON.stringify(bareBonesCoin, null, 2));
 
+console.log("Mining block...");
 bareBonesCoin.addBlock(new _block2.default(null, Date.now(), { amount: 10 }));
+console.log(JSON.stringify(bareBonesCoin, null, 2));
 
-console.log(JSON.stringify(bareBonesCoin, null, 2));
-//checking if current hash and previous hash are valid
-console.log('Blockchain is valid: ' + bareBonesCoin.isChainValid());
-//changed value of data prop
-bareBonesCoin.chain[1].data = { amount: 100 };
-//checking if current hash and previous hash are valid
-console.log(bareBonesCoin.chain[1].hash, bareBonesCoin.chain[1].data);
-console.log('Blockchain is valid: ' + bareBonesCoin.isChainValid());
-bareBonesCoin.chain[1].hash = bareBonesCoin.chain[1].calculateHash();
-console.log(bareBonesCoin.chain[1].hash, bareBonesCoin.chain[1].data);
-console.log('Blockchain is valid: ' + bareBonesCoin.isChainValid());
-console.log(JSON.stringify(bareBonesCoin, null, 2));
+// //checking if current hash and previous hash are valid
+// console.log(`Blockchain is valid: ${bareBonesCoin.isChainValid()}`);
+// //changed value of data prop
+// bareBonesCoin.chain[1].data = {amount: 100};
+// //checking if current hash and previous hash are valid
+// console.log(bareBonesCoin.chain[1].hash, bareBonesCoin.chain[1].data);
+// console.log(`Blockchain is valid: ${bareBonesCoin.isChainValid()}`);
+// bareBonesCoin.chain[1].hash = bareBonesCoin.chain[1].calculateHash();
+// console.log(bareBonesCoin.chain[1].hash, bareBonesCoin.chain[1].data);
+// console.log(`Blockchain is valid: ${bareBonesCoin.isChainValid()}`);
+// console.log(JSON.stringify(bareBonesCoin, null, 2));
 
 /***/ }),
 /* 3 */
@@ -1162,6 +1176,7 @@ var Blockchain = function () {
 
     // a genesis block is created witht the new blockchain
     this.chain = [this.createGenesisBlock()];
+    this.difficulty = 5;
   }
 
   //methods
@@ -1186,7 +1201,8 @@ var Blockchain = function () {
       //set the previousHash prop
       newBlock.previousHash = this.getLatestBlock().hash;
       //recalc hash
-      newBlock.hash = newBlock.calculateHash();
+      // newBlock.hash = newBlock.calculateHash();
+      newBlock.mineBlock(this.difficulty);
       //push the newBlock to the blockchain
       this.chain.push(newBlock);
     }

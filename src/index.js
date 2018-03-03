@@ -9,6 +9,7 @@ import Blockchain from './blockchain';
 
 let bareBonesCoin = new Blockchain();
 
+console.log("Mining block...");
 bareBonesCoin.addBlock(
   new Block(
     null,
@@ -16,7 +17,9 @@ bareBonesCoin.addBlock(
     {amount: 4}
   )
 );
+console.log(JSON.stringify(bareBonesCoin, null, 2));
 
+console.log("Mining block...");
 bareBonesCoin.addBlock(
   new Block(
     null,
@@ -24,16 +27,16 @@ bareBonesCoin.addBlock(
     {amount: 10}
   )
 );
+console.log(JSON.stringify(bareBonesCoin, null, 2));
 
-console.log(JSON.stringify(bareBonesCoin, null, 2));
-//checking if current hash and previous hash are valid
-console.log(`Blockchain is valid: ${bareBonesCoin.isChainValid()}`);
-//changed value of data prop
-bareBonesCoin.chain[1].data = {amount: 100};
-//checking if current hash and previous hash are valid
-console.log(bareBonesCoin.chain[1].hash, bareBonesCoin.chain[1].data);
-console.log(`Blockchain is valid: ${bareBonesCoin.isChainValid()}`);
-bareBonesCoin.chain[1].hash = bareBonesCoin.chain[1].calculateHash();
-console.log(bareBonesCoin.chain[1].hash, bareBonesCoin.chain[1].data);
-console.log(`Blockchain is valid: ${bareBonesCoin.isChainValid()}`);
-console.log(JSON.stringify(bareBonesCoin, null, 2));
+// //checking if current hash and previous hash are valid
+// console.log(`Blockchain is valid: ${bareBonesCoin.isChainValid()}`);
+// //changed value of data prop
+// bareBonesCoin.chain[1].data = {amount: 100};
+// //checking if current hash and previous hash are valid
+// console.log(bareBonesCoin.chain[1].hash, bareBonesCoin.chain[1].data);
+// console.log(`Blockchain is valid: ${bareBonesCoin.isChainValid()}`);
+// bareBonesCoin.chain[1].hash = bareBonesCoin.chain[1].calculateHash();
+// console.log(bareBonesCoin.chain[1].hash, bareBonesCoin.chain[1].data);
+// console.log(`Blockchain is valid: ${bareBonesCoin.isChainValid()}`);
+// console.log(JSON.stringify(bareBonesCoin, null, 2));

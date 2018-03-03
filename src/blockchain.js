@@ -4,6 +4,7 @@ export default class Blockchain {
   constructor() {
     // a genesis block is created witht the new blockchain
     this.chain = [this.createGenesisBlock()];
+    this.difficulty = 4;
   }
 
   //methods
@@ -27,7 +28,8 @@ export default class Blockchain {
     //set the previousHash prop
     newBlock.previousHash = this.getLatestBlock().hash;
     //recalc hash
-    newBlock.hash = newBlock.calculateHash();
+    // newBlock.hash = newBlock.calculateHash();
+    newBlock.mineBlock(this.difficulty);
     //push the newBlock to the blockchain
     this.chain.push(newBlock);
   }
