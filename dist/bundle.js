@@ -1174,7 +1174,7 @@ var Blockchain = function () {
   function Blockchain() {
     _classCallCheck(this, Blockchain);
 
-    // a genesis block is created witht the new blockchain
+    // upon initialization, create a genesis block
     this.chain = [this.createGenesisBlock()];
     this.difficulty = 4;
   }
@@ -1185,12 +1185,18 @@ var Blockchain = function () {
   _createClass(Blockchain, [{
     key: "createGenesisBlock",
     value: function createGenesisBlock() {
-      return new _block2.default(0, Date.now(), { message: "genesisBlock" }, "0");
+      return new _block2.default(0, //index
+      Date.now(), //datetime
+      //data obj
+      {
+        message: "genesisBlock"
+      }, "0" //previousHash
+      );
     }
   }, {
     key: "getLatestBlock",
     value: function getLatestBlock() {
-      //return block at last index
+      //return block at last index of the chain
       return this.chain[this.chain.length - 1];
     }
   }, {
@@ -1198,7 +1204,7 @@ var Blockchain = function () {
     value: function addBlock(newBlock) {
       // set the index prop
       newBlock.index = this.chain.length;
-      //set the previousHash prop
+      //set the previousHash prop by obtaining the hash of getLatestBlock
       newBlock.previousHash = this.getLatestBlock().hash;
       //recalc hash
       // newBlock.hash = newBlock.calculateHash();
