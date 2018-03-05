@@ -8,10 +8,9 @@ import sha256 from 'crypto-js/sha256';
 * hash: hash of this block
 */
 export default class Block {
-  constructor(index = 0, timestamp, data, previousHash = '') {
-    this.index = index;
+  constructor(timestamp, transactions, previousHash = '') {
     this.timestamp = timestamp;
-    this.data = data;
+    this.transactions = transactions;
     this.previousHash = previousHash;
     this.hash = this.calculateHash();
     this.nonce = 0;
@@ -23,7 +22,7 @@ export default class Block {
       this.index +
       this.timestamp +
       this.previousHash +
-      JSON.stringify(this.data) +
+      JSON.stringify(this.transactions) +
       this.nonce
     ).toString();
   }

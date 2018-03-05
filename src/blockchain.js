@@ -1,16 +1,18 @@
-import Block from './block';
+import Block from "./block";
+import Transaction from "./Transaction";
 
 export default class Blockchain {
   constructor() {
     // upon initialization, create a genesis block
     this.chain = [this.createGenesisBlock()];
-    this.difficulty = 4;
+    this.difficulty = 2;
+    this.pendingTransactions = [];
+    this.miningReward = 50;
   }
 
   //methods
   createGenesisBlock() {
     return new Block(
-      0, //index
       Date.now(), //datetime
       //data obj
       {
@@ -25,16 +27,40 @@ export default class Blockchain {
     return this.chain[this.chain.length - 1];
   }
 
-  addBlock(newBlock) {
-    // set the index prop
-    newBlock.index = this.chain.length;
-    //set the previousHash prop by obtaining the hash of getLatestBlock
-    newBlock.previousHash = this.getLatestBlock().hash;
-    //recalc hash
-    // newBlock.hash = newBlock.calculateHash();
+  // addBlock(newBlock) {
+  //   // set the index prop
+  //   newBlock.index = this.chain.length;
+  //   //set the previousHash prop by obtaining the hash of getLatestBlock
+  //   newBlock.previousHash = this.getLatestBlock().hash;
+  //   //recalc hash
+  //   // newBlock.hash = newBlock.calculateHash();
+  //   newBlock.mineBlock(this.difficulty);
+  //   //push the newBlock to the blockchain
+  //   this.chain.push(newBlock);
+  // }
+
+  minePendingTransactions(rewardAddress) {
+    // create a new block
+    let newBlock = new Block(Date.now(), this.pendingTransactions);
+    // calculateHash for the newBlock
     newBlock.mineBlock(this.difficulty);
-    //push the newBlock to the blockchain
+
+    console.log("A new block has been successfully mined");
     this.chain.push(newBlock);
+
+    // reset transaction mining array
+    this.pendingTransactions = [
+      // create new transactions array and give miner reward
+      new Transaction(null, rewardAddress, this.miningReward)
+    ];
+  }
+
+  createTransaction(transaction) {
+    this.pendingTransactions.push(transaction);
+  }
+
+  getAddressBalance(address) {
+
   }
 
   isChainValid() {
