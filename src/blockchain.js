@@ -30,14 +30,20 @@ export default class Blockchain {
     newBlock.index = this.chain.length;
     //set the previousHash prop by obtaining the hash of getLatestBlock
     newBlock.previousHash = this.getLatestBlock().hash;
+<<<<<<< HEAD
     //recalc hash
     // newBlock.hash = newBlock.calculateHash();
     newBlock.mineBlock(this.difficulty);
+=======
+    //recalc hash of current block
+    newBlock.hash = newBlock.calculateHash();
+>>>>>>> feature/createBlockchain
     //push the newBlock to the blockchain
     this.chain.push(newBlock);
   }
 
   isChainValid() {
+<<<<<<< HEAD
     //exclude genesisBlock from loop
     for (let i = 1; i < this.chain.length; i++) {
       const currentBlock = this.chain[i];
@@ -54,6 +60,19 @@ export default class Blockchain {
     }
     // if all hashes are verified
     return true;
+=======
+    let currentBlockHash = this.getLatestBlock().previousHash;
+    let previousBlockHash = this.chain[this.getLatestBlock().index - 1].hash;
+    // let previousBlockHash = this.chain[this.chain.length - 2].hash
+    console.log(`Current: ${currentBlockHash}, \nPrevious: ${previousBlockHash}`);
+    if (currentBlockHash === previousBlockHash) {
+      console.log(true);
+      return true;
+    } else {
+      console.log(false);
+      return false;
+    }
+>>>>>>> feature/createBlockchain
   }
 }
 

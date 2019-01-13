@@ -28,6 +28,7 @@ export default class Block {
     ).toString();
   }
 
+<<<<<<< HEAD
   mineBlock(difficulty) {
     while (this.hash.substring(0, difficulty) !== Array(difficulty + 1).join("0")) {
       this.nonce++;
@@ -36,5 +37,13 @@ export default class Block {
     }
 
     console.log(`Mined block: ${this.hash}`);
+=======
+  toString() {
+    return `Block -
+      Timestamp: ${this.timestamp},
+      Data: ${this.data},
+      PreviousHash: ${this.previousHash.substring(0, 6)}
+      Hash: ${this.hash.substring(0, 6)}`;
+>>>>>>> feature/createBlockchain
   }
 }
