@@ -26,4 +26,12 @@ export default class Block {
       JSON.stringify(this.data)
     ).toString();
   }
+
+  toString() {
+    return `Block -
+      Timestamp: ${this.timestamp},
+      Data: ${this.data},
+      PreviousHash: ${this.previousHash.substring(0, 6)}
+      Hash: ${this.hash.substring(0, 6)}`;
+  }
 }

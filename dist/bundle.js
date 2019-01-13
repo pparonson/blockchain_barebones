@@ -2783,6 +2783,11 @@ var Block = function () {
     value: function calculateHash() {
       return (0, _sha2.default)(this.index + this.timestamp + this.previousHash + JSON.stringify(this.data)).toString();
     }
+  }, {
+    key: 'toString',
+    value: function toString() {
+      return 'Block -\n      Timestamp: ' + this.timestamp + ',\n      Data: ' + this.data + ',\n      PreviousHash: ' + this.previousHash.substring(0, 6) + '\n      Hash: ' + this.hash.substring(0, 6);
+    }
   }]);
 
   return Block;
@@ -5805,18 +5810,30 @@ var _blockchain2 = _interopRequireDefault(_blockchain);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// console.log(`Answer: ${math.add(2, 1)}`);
-
-// import * as math from './sum';
 var bareBonesCoin = new _blockchain2.default();
 
-bareBonesCoin.addBlock(new _block2.default(null, Date.now(), { amount: 4 }));
-
-bareBonesCoin.addBlock(new _block2.default(null, Date.now(), { amount: 10 }));
+// bareBonesCoin.addBlock(
+//   new Block(
+//     null,
+//     Date.now(),
+//     {amount: 4}
+//   )
+// );
+//
+// bareBonesCoin.addBlock(
+//   new Block(
+//     null,
+//     Date.now(),
+//     {amount: 10}
+//   )
+// );
 
 console.log(JSON.stringify(bareBonesCoin, null, 2));
+//
+// console.log(bareBonesCoin.isChainValid());
 
-console.log(bareBonesCoin.isChainValid());
+// let block = new Block(Date.now(), {message: "test"}, "abc123");
+// console.log(block);
 
 /***/ }),
 /* 123 */
